@@ -64,6 +64,7 @@ public class Place {
 				for(int i = 0; i < size; i++) {
 					if(dummyInv[i] == null) {break;} else {
 						total += dummyInv[i].getValue();	
+						sold++;
 					}
 				}
 				System.out.println(p.getName()+" sold "+sold+" items for "+total+" gold.");

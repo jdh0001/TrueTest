@@ -4,32 +4,32 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Creature extends Thing {
 	//Required for life, no 0's
-	private static int health;
-	private static int stamina;
-	private static int mana;
+	private int health;
+	private int stamina;
+	private int mana;
 	
 	//Only level is necessary to not be 0
-	private static int level;
-	private static int exp;
-	private static int gold;
+	private int level;
+	private int exp;
+	private int gold;
 	
 	//They can all be 0 but should not in most cases
-	private static int mAtk;
-	private static int pAtk;
-	private static int mDef;
-	private static int pDef;
+	private int mAtk;
+	private int pAtk;
+	private int mDef;
+	private int pDef;
 	
 	//They can be 0 
-	private static int agility;
-	private static int luck;
-	private static int armorScore;
+	private int agility;
+	private int luck;
+	private int armorScore;
 	
-	private static int cType;
+	private int cType;
 	//Type 0 - Beast
 	//Type 1 - Monster
 	//Type 2 - Sentient
 	
-	private static Item[] drops;
+	private Item[] drops;
 	
 	
 	public Creature(String d, String sN, int hp, int stm, int man, int lv,
@@ -123,7 +123,7 @@ public abstract class Creature extends Thing {
 	}
 	
 	/*Used to randomly generate a creature's statistics based on level and cType*/
-	private static void generateStats() {
+	private void generateStats() {
 		
 		//Beast
 		if(cType == 0) {
@@ -202,7 +202,7 @@ public abstract class Creature extends Thing {
 		
 	}
 	
-	private static void generateDrops(){
+	private void generateDrops(){
 		
 		drops = new Item[ThreadLocalRandom.current().nextInt(0,5)];
 		

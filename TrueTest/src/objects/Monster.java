@@ -128,10 +128,18 @@ public class Monster extends Creature {
 		
 		int totalDef = (int) (totalPhysDef + totalMagDef + 6);
 		
+
+		int magDam = totalMagAtk - totalMagDef;
+		int physDam = totalPhysAtk - totalPhysDef;
+		int finDamage = physDam;
+		
+		if(magDam>=physDam) finDamage = magDam;
+		
 		//Critical Hit if within range of luck
-		if(atkLck % ThreadLocalRandom.current().nextInt(1, atkLck+1) < 2) totalAtk *= 2;
-		System.out.println("CRITICAL HIT!\n");
-		int finDamage = totalAtk - totalDef;
+		if(ThreadLocalRandom.current().nextInt(1, atkLck+1) < (2+(atkLck/5))) {
+			finDamage *= 2;
+			System.out.println("CRITICAL HIT!\n");
+		}
 		
 		if(finDamage < 0) finDamage = 0;
 		

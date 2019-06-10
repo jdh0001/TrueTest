@@ -34,10 +34,10 @@ public class Player {
 	
 	public Player(String n) {
 		name = n;
-		if(name.equals("")) name = "Idiot McLoserBoy Jr.";
-		health = 25;
-		stamina = 25;
-		mana = 25;
+		if(name == "") name = "Idiot McLoserBoy Jr.";
+		health = ThreadLocalRandom.current().nextInt(15,31);
+		stamina = ThreadLocalRandom.current().nextInt(15,31);
+		mana = ThreadLocalRandom.current().nextInt(15,31);
 		level = 1;
 		exp = 0;
 		gold = 5;
@@ -46,7 +46,7 @@ public class Player {
 		aa[0] = new Armor(0,0,false);
 		aa[1] = new Armor(0,0,false);
 		luck = 1;
-		agility = 15;
+		agility = ThreadLocalRandom.current().nextInt(4,16);
 		inventory = new Item[15];
 		armorScore = 0;
 		int throwAway = consolidatePArmor();
@@ -125,6 +125,8 @@ public class Player {
 		
 		agility += (stamina % 5) + ThreadLocalRandom.current().nextInt(0,6);
 		luck += ThreadLocalRandom.current().nextInt(0,6);
+		
+		System.out.println("\nYou leved up to level: "+level+"!\n");
 		
 		if(exReserve >= next) { levelUp(exReserve, next);}else {
 			exp = exReserve;
