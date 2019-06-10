@@ -1,5 +1,6 @@
 package objects;
 
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
@@ -138,7 +139,7 @@ public class Player {
 		if(aa.length>0) {
 			for(int i = 0; i<aa.length; i++) {
 				Armor temp = aa[i];
-				if(temp == null||temp.equals(null)) {} else {
+				if(temp == null||temp == null) {} else {
 					total += temp.getPdMod();
 					armorScore++;
 				}
@@ -152,7 +153,7 @@ public class Player {
 		if(aa.length>0) {
 			for(int i = 0; i<aa.length; i++) {
 				Armor temp = aa[i];
-				if(temp == null||temp.equals(null)) {} else {
+				if(temp == null||temp == null) {} else {
 					total += temp.getMdMod();
 					
 				}
@@ -214,6 +215,53 @@ public class Player {
 	public static void decreaseGold(int gp) {
 		gold -= gp;
 		if(gold < 0) gold = 0;
+	}
+	
+	public static void clearInventory() {
+		inventory = new Item[15];
+	}
+	
+	public static void addInventory(Item t) {
+		int size = inventory.length;
+		boolean placed = false, flag = true;
+		Scanner read = new Scanner(System.in);
+		String choice = "n";
+		for(int i = 0; i < size; i++) {
+			if(inventory[i] == null) {
+				placed = true;
+				inventory[i] = t;
+				break;
+			}
+		}
+		if(!placed) {
+			while(flag) {
+				try {
+					flag = false;
+					System.out.println("Inventory is full. Replace an item of lesser value? (y/n)");
+					choice = read.next();
+				}catch(Exception e) {
+					flag = true;
+				}
+			}
+			if(choice.trim().charAt(0)=='y') {	
+				Item temp = null;
+				for(int i = 0; i < size; i++) {
+					if(inventory[i].getValue() < t.getValue()) {
+						inventory[i] = t;
+						flag = true;
+						break;
+					}
+				}
+				if(flag) {
+					System.out.println("Replaced item worth "+temp.getValue()+" for item worth"+t.getValue());
+				}else {
+					System.out.println("There were no items of lesser value, so it was thrown away.");
+				}
+			}else {
+				System.out.println("Item was thrown away.");
+			}
+			
+		}
 	}
 
 	public String getName() {

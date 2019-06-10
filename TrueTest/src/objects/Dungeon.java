@@ -5,8 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Dungeon {
 	private static String dunName;
 	private static int totalFloors;
-	private static int currentFloor;
-	private static Place[] floors;
+	private int currentFloor;
+	private Place[] floors;
 	
 	public Dungeon(int tF, Player p) {
 		totalFloors = tF;
@@ -21,12 +21,25 @@ public abstract class Dungeon {
 		currentFloor = 1;
 	}
 	
-	private static void genFloors(Player p){
+	private void genFloors(Player p){
+		boolean temp = false;
+		int sum=0;
 		for(int i = 0; i<totalFloors; i++) {
-			boolean temp = false;
-			if(ThreadLocalRandom.current().nextInt(0,5)==3) temp = true;
-			floors[i] = new Place(temp, (i+1), p);
+			
+			if(i > 0 && i < (totalFloors/2 +1) && ThreadLocalRandom.current().nextInt(0,2)==1 && !temp) {
+				//first floor can't be rest
+				//no two adjacent floors may be rest
+				temp = true;
+			}else {
+				temp = false;
+			}
+			
+//			if(ThreadLocalRandom.current().nextInt(0,5)==3) temp = true;
+			floors[i] = new Place(temp, (i+1), p, this);
+
 		}
+
+
 	}
 	
 	
@@ -39,17 +52,17 @@ public abstract class Dungeon {
 		return totalFloors;
 	}
 	
-	public static int getCurrentFloor() {
+	public int getCurrentFloor() {
 		return currentFloor;
 	}
-	public static boolean finalFloor() {
+	public boolean finalFloor() {
 		if(currentFloor >= (totalFloors)) return true;
 		return false;
 	}
-	public static Place[] getFloors() {
+	public Place[] getFloors() {
 		return floors;
 	}
-	public static void setCurrentFloor(int curr) {
+	public void setCurrentFloor(int curr) {
 		if(curr <= totalFloors) {
 			currentFloor = curr;
 			if(curr == totalFloors) System.out.println("\n /////FINAL FLOOR///// \n");

@@ -99,11 +99,28 @@ public abstract class Item extends Thing {
 			value = 0;
 		}
 	}
+	
 
 //	public String getName() {
 //		return super.getName();
 //	}
 	
+	public int getValue() {
+		return value;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public int getRarity() {
+		return rarity;
+	}
+
+	public int getiType() {
+		return iType;
+	}
+
 	public String getDescription() {
 		return super.getDescription();
 	}

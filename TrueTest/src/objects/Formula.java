@@ -286,8 +286,21 @@ public class Formula {
 		}//end battle loop
 		
 		if(victory) {
+			//add exp
 			p.increaseExp(c.getExp());
+			//add gold
 			p.increaseGold(c.getGold());
+			//add items
+			Item[] droppings = c.getDrops();
+			int place = 0;
+			for(int i = 0; i < p.getInventory().length; i++) {
+				if(p.getInventory()[i] == null && place < droppings.length) {
+					p.getInventory()[i] = droppings[place];
+					place++;
+				}else if(place >= droppings.length) {
+					break;
+				}
+			}
 			//add items
 		}
 		return victory;
@@ -411,8 +424,21 @@ public static boolean battle(Player p, Beast c) {
 		}//end battle loop
 		
 		if(victory) {
+			//add exp
 			p.increaseExp(c.getExp());
+			//add gold
 			p.increaseGold(c.getGold());
+			//add items
+			Item[] droppings = c.getDrops();
+			int place = 0;
+			for(int i = 0; i < p.getInventory().length; i++) {
+				if(p.getInventory()[i] == null && place < droppings.length) {
+					p.getInventory()[i] = droppings[place];
+					place++;
+				}else if(place >= droppings.length) {
+					break;
+				}
+			}
 			//add items
 		}
 		return victory;
@@ -535,8 +561,21 @@ public static boolean battle(Player p, Monster c) {
 	}//end battle loop
 	
 	if(victory) {
+		//add exp
 		p.increaseExp(c.getExp());
+		//add gold
 		p.increaseGold(c.getGold());
+		//add items
+		Item[] droppings = c.getDrops();
+		int place = 0;
+		for(int i = 0; i < p.getInventory().length; i++) {
+			if(p.getInventory()[i] == null && place < droppings.length) {
+				p.getInventory()[i] = droppings[place];
+				place++;
+			}else if(place >= droppings.length) {
+				break;
+			}
+		}
 		//add items
 	}
 	return victory;

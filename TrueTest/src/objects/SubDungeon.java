@@ -19,11 +19,11 @@ public class SubDungeon extends Dungeon {
 		return Dungeon.getTotalFloors();
 	}
 	
-	public static int getCurrentFloor() {
-		return Dungeon.getCurrentFloor();
+	public int getCurrentFloor() {
+		return super.getCurrentFloor();
 	}
 
-	public static Place[] getFloors() {
-		return Dungeon.getFloors();
+	public Place[] getFloors() {
+		return super.getFloors();
 	}
 }
