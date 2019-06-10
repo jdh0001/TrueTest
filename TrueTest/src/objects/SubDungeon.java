@@ -11,12 +11,12 @@ public class SubDungeon extends Dungeon {
 		
 	}
 	
-	public static String getDunName() {
-		return Dungeon.getDunName();
+	public String getDunName() {
+		return super.getDunName();
 	}
 
-	public static int getTotalFloors() {
-		return Dungeon.getTotalFloors();
+	public int getTotalFloors() {
+		return super.getTotalFloors();
 	}
 	
 	public int getCurrentFloor() {

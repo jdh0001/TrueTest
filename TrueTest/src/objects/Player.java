@@ -190,12 +190,21 @@ public class Player {
 		
 		int totalDef = (int) (totalPhysDef + totalMagDef);
 		
+		int magDam = totalMagAtk - totalMagDef;
+		int physDam = totalPhysAtk - totalPhysDef;
+		int finDamage = physDam;
+		
+		if(magDam>=physDam) finDamage = magDam;
+		
+		if(finDamage < 0) finDamage = 1;
+		
 		//Critical Hit if within range of luck
-		if(atkLck % ThreadLocalRandom.current().nextInt(1, atkLck+1) < 3) totalAtk *= 2;
+		if(ThreadLocalRandom.current().nextInt(1, atkLck+1) < (2+(atkLck/3))) {
+			finDamage *= 2;
+			System.out.println("CRITICAL HIT!\n");
+		}
 		
-		int finDamage = totalAtk - totalDef;
 		
-		if(finDamage < 0) finDamage = 0;
 		
 		return finDamage;
 		

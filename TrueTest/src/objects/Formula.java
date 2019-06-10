@@ -169,6 +169,40 @@ public class Formula {
 		
 		return miscs[ThreadLocalRandom.current().nextInt(0,(miscs.length))];
 	}
+	
+	public static String generateDungeonName() {
+		
+		
+		String[] mod = new String[] 
+		{"Evil", "Good", "Madness", "Mad", "Happy", "Sad", "Mushroom", "Tasty",
+		"Unholy", "Holy", "Restful", "Monster", "Crazy", "Weird", "Mispelled",		
+		Formula.sentientName()+"\'s", "Manic", "Depressed", "Pessimistic",				
+		"Dinner", "Lunch", "Snack", "Wayward", "Musical", "Polyamorous", "Mobile",
+		"Cruel", "Merciful", "Sadistic", "Masochistic", "Candy Coated",
+		"Snowflake", "Liberal", "Goopy", "Gross", "Dirty", "Diseased",
+		"Corrupted", "Ugly", "Beautiful", "Cool", "Hot", "Burning", "Frozen",
+		"Dangerous", "Deadly", "Willful", "Hellish", "Saintly", "Comical"};
+				
+		String[] mod2 = new String[] 
+		{"Evil", "Good", "Madness", "Cheese", "Happiness", "Sadness", "Mushrooms", "Food",
+		"Demons", "Monsters", "Resting", "No Gold", "Insanity", "Creepiness", "Typos",		
+		Formula.monsterName()+"s", "Energy", "Depression", "Pessimistism",				
+		"Rice", "Meat", "Eating", "Devouring", "Composing", "Heart Break", "Legs and Wheels",
+		"Cruelty", "Mercy", "Vegetables", "Candy", "Trash", "Garbage", "???",
+		"Ice", "Tears", "Goo", "Poo", "Dirt", "Illness", "Lavatories", "Easy Victories",
+		"Corruption", "Bullying", "Beauty", "No Air", "Steam", "Fire", "Ice and Snow",
+		"Danger", "Death", "Pride", "Hell", "Paradise", "Comedy", "Screams", "Laughter"
+				
+		};
+		
+		String[] dungies = new String[] 
+		{" Crypt of ", " Dungeon of ", " Tomb of ", " Cave of ", " Crevasse of ",
+		" Lair of ", " Underground Base of ", " Hidden Location of ", " Castle of "};
+		
+		return mod[ThreadLocalRandom.current().nextInt(0,(mod.length))]+
+				dungies[ThreadLocalRandom.current().nextInt(0,(dungies.length))]+
+				mod2[ThreadLocalRandom.current().nextInt(0,(mod2.length))];
+	}
 		
 	public static boolean battle(Player p, Sentient c) {
 		

@@ -3,13 +3,14 @@ package objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Dungeon {
-	private static String dunName;
-	private static int totalFloors;
+	private String dunName;
+	private int totalFloors;
 	private int currentFloor;
 	private Place[] floors;
 	
 	public Dungeon(int tF, Player p) {
 		totalFloors = tF;
+		dunName = Formula.generateDungeonName();
 		if(totalFloors < 1) totalFloors = 1;
 		currentFloor = 1;
 		floors = new Place[totalFloors];
@@ -44,11 +45,11 @@ public abstract class Dungeon {
 	
 	
 
-	public static String getDunName() {
+	public String getDunName() {
 		return dunName;
 	}
 
-	public static int getTotalFloors() {
+	public int getTotalFloors() {
 		return totalFloors;
 	}
 	

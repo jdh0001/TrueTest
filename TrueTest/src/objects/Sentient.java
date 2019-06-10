@@ -126,7 +126,7 @@ public class Sentient extends Creature {
 			System.out.println("CRITICAL HIT!\n");
 		}
 		
-		if(finDamage < 0) finDamage = 0;
+		if(finDamage <= 0) finDamage = 1;
 		
 		return finDamage;
 	}

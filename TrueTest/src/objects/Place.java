@@ -89,12 +89,15 @@ public class Place {
 				boolean win = false;
 				
 				if(enemies[placeHolder] instanceof Monster) {
+					enemies[placeHolder].generateStats();
 					a = (Monster) enemies[placeHolder];
 					win = Formula.battle(p,a);
 				}else if(enemies[placeHolder] instanceof Sentient) {
+					enemies[placeHolder].generateStats();
 					b = (Sentient) enemies[placeHolder];
 					win = Formula.battle(p,b);
 				}else if(enemies[placeHolder] instanceof Beast) {
+					enemies[placeHolder].generateStats();
 					c = (Beast) enemies[placeHolder];
 					win = Formula.battle(p,c);
 				}

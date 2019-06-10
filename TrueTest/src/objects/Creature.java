@@ -117,13 +117,13 @@ public abstract class Creature extends Thing {
 		//super("1",cT,0,false);
 		cType = cT;
 		level = lv;
-		generateStats();
-		generateDrops();
+//		generateStats();
+//		generateDrops();
 		
 	}
 	
 	/*Used to randomly generate a creature's statistics based on level and cType*/
-	private void generateStats() {
+	public void generateStats() {
 		
 		//Beast
 		if(cType == 0) {
@@ -143,7 +143,7 @@ public abstract class Creature extends Thing {
 			mAtk = (int)(level/3);
 			mDef = (int)(level/2);
 			
-			agility = (int)(((stamina - ((pAtk + pDef) / 5))) + level);
+			agility = (int)(((stamina - ((pAtk + pDef) / 5))) + (level*3));
 			luck = (int)(ThreadLocalRandom.current().nextInt(1,(12+level)));
 			
 			exp = (int)(ThreadLocalRandom.current().nextInt(1, 6) * level);
@@ -154,9 +154,9 @@ public abstract class Creature extends Thing {
 		//Monster	
 		if (cType == 1) {
 			
-			health = (int)(10 * level + ThreadLocalRandom.current().nextInt(0, (15+level)));
+			health = (int)(10 * level + ThreadLocalRandom.current().nextInt(0, (15+level))*(level));
 			mana = (int)(1 + (level) + (health/(ThreadLocalRandom.current().nextInt(2, 5))));
-			stamina = (int)((health * .8) + level);
+			stamina = (int)((health * .8) + (level*1.5)*level);
 			armorScore = (int)(ThreadLocalRandom.current().nextInt(0,4));
 			
 			pAtk = (int)(level + ((health * ThreadLocalRandom.current().nextInt(2, 5)) / ThreadLocalRandom.current().nextInt(4, 7))); 
@@ -168,7 +168,7 @@ public abstract class Creature extends Thing {
 				mDef = (int)(level + (pDef * .45) + 3);
 			}
 			agility = (int)((stamina * .65) + level);
-			luck = (int)(ThreadLocalRandom.current().nextInt(1,(12+level)));
+			luck = (int)(ThreadLocalRandom.current().nextInt(1,(12+level))+(2*level));
 			
 			exp = (int)(ThreadLocalRandom.current().nextInt(1, 11) * level);
 			gold = (int)(ThreadLocalRandom.current().nextInt(0,(level+10))+1);
@@ -178,9 +178,9 @@ public abstract class Creature extends Thing {
 		//Sentient	
 		if(cType == 2) {
 			
-			health = (int)(4 * level + ThreadLocalRandom.current().nextInt(0, (7+level)));
-			mana = (int)(1 + (level) + (health/(ThreadLocalRandom.current().nextInt(2, 5))));
-			stamina = (int)((health * .8) + level);
+			health = (int)(4 * level + ThreadLocalRandom.current().nextInt(0, (7+level))*level);
+			mana = (int)(1 + (level) + (health/(ThreadLocalRandom.current().nextInt(2, 5)))*level);
+			stamina = (int)((health * .8) + (level*1.5)*level);
 			armorScore = (int)(ThreadLocalRandom.current().nextInt(0,5));
 			
 			pAtk = (int)(level + (health * ThreadLocalRandom.current().nextInt(1, 6) / ThreadLocalRandom.current().nextInt(4, 7)) + (stamina / 4)); 
@@ -188,7 +188,7 @@ public abstract class Creature extends Thing {
 			mAtk = (int)(level + (pAtk * (ThreadLocalRandom.current().nextInt(0,(5 + (mana / 4))) / 4)));
 			mDef = (int)(level + (pDef * (ThreadLocalRandom.current().nextInt(0,(5 + (mana / 4))) / 4)));
 			
-			agility = (int)((stamina * (ThreadLocalRandom.current().nextInt(0,(5 + (mana / 4))))) + level);
+			agility = (int)((stamina * (ThreadLocalRandom.current().nextInt(0,(5 + (mana / 4))))) * level);
 			luck = (int)(ThreadLocalRandom.current().nextInt(1,(12+level)));		
 			
 			exp = (int)(ThreadLocalRandom.current().nextInt(1, 17) * level);
@@ -198,7 +198,7 @@ public abstract class Creature extends Thing {
 			System.err.println("Error cType = "+cType+" is not valid. Expected values (0,1,2).");
 		}
 		
-		
+		generateDrops();
 		
 	}
 	
