@@ -208,7 +208,7 @@ public class Formula {
 		
 		int php = p.getHealth();
 		int chp = c.getHealth();
-		int damageTracker = 0;
+		int damageTracker = 0, looper = 0;
 		int escChance = p.getAgility()+2;
 		String cN = c.getName(), pN = p.getName();
 		Scanner read = new Scanner(System.in);
@@ -216,7 +216,7 @@ public class Formula {
 		boolean flag = true, fight = true, iFlag = true, victory = false;
 		while(flag) {
 			
-			System.out.println("An enemy "+cN+" stands before you.\n");
+			System.out.println("A level "+c.getLevel()+" sentient enemy, "+cN+" stands before you.\n");
 			System.out.println("Do you wish to fight? (y/n)");
 			
 			while(iFlag) {
@@ -226,13 +226,17 @@ public class Formula {
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
+					looper++;
+					//in the case of feedback loop for combat, force exits loop
+					if(looper >= 10) { iFlag = true; decision = "N";}
 				}
 			}
 			
 			if(decision.trim().charAt(0)=='n'||decision.trim().charAt(0)=='N') fight = false;
 			
 			if(fight) {
-				System.out.println("You have chosen to fight!\n");
+				System.out.println("\nYou have chosen to fight!\n");
+				System.out.println("Player health:"+php+" || Enemy health:"+chp);
 				
 				if(p.getAgility()>c.getAgility()) {
 					System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -310,8 +314,14 @@ public class Formula {
 				flag = false;
 				if(chp>=0) {
 					System.out.println(pN+" was defeated by the "+cN+"!\n");
-					System.out.println(pN+" dropped "+p.getGold()+" gold to get away safely.");
-					p.decreaseGold(p.getGold());
+					
+					if(p.getGold() > 0) {
+						System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
+						p.decreaseGold(p.getGold());
+					}else {
+						p.increaseDeathCount();
+						System.out.println("You had no gold to throw and have taken a serious wound.");
+					}
 				}else {
 					System.out.println(pN+" defeated the "+cN+"!\n");
 					victory = true;
@@ -344,7 +354,7 @@ public static boolean battle(Player p, Beast c) {
 		
 		int php = p.getHealth();
 		int chp = c.getHealth();
-		int damageTracker = 0;
+		int damageTracker = 0, looper = 0;
 		int escChance = p.getAgility()+2;
 		String cN = c.getName(), pN = p.getName();
 		Scanner read = new Scanner(System.in);
@@ -352,7 +362,7 @@ public static boolean battle(Player p, Beast c) {
 		boolean flag = true, fight = true, iFlag = true, victory = false;
 		while(flag) {
 			
-			System.out.println("An beast enemy "+c.tN()+" stands before you.\n");
+			System.out.println("A level "+c.getLevel()+" beastial enemy, "+cN+" stands before you.\n");
 			System.out.println("Do you wish to fight? (y/n)");
 			
 			while(iFlag) {
@@ -362,14 +372,17 @@ public static boolean battle(Player p, Beast c) {
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
+					looper++;
+					//in the case of feedback loop for combat, force exits loop
+					if(looper >= 10) { iFlag = true; decision = "N";}
 				}
 			}
 			
 			if(decision.trim().charAt(0)=='n'||decision.trim().charAt(0)=='N') fight = false;
 			
 			if(fight) {
-				System.out.println("You have chosen to fight!\n");
-				System.out.println("Player hp="+p.getHealth()+"|| Enemy hp="+c.getHealth());
+				System.out.println("\nYou have chosen to fight!\n");
+				System.out.println("Player health:"+php+" || Enemy health:"+chp);
 				
 				if(p.getAgility()>c.getAgility()) {
 					System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -447,9 +460,14 @@ public static boolean battle(Player p, Beast c) {
 				flag = false;
 				if(chp>=0) {
 					System.out.println(pN+" was defeated by the "+cN+"!\n");
-					System.out.println(pN+" dropped "+p.getGold()+" gold to get away safely.");
-					System.out.println("Enemy had "+chp+"/"+c.getHealth()+" health left.");
-					p.decreaseGold(p.getGold());
+					
+					if(p.getGold() > 0) {
+						System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
+						p.decreaseGold(p.getGold());
+					}else {
+						p.increaseDeathCount();
+						System.out.println("You had no gold to throw and have taken a serious wound.");
+					}
 				}else {
 					System.out.println(pN+" defeated the "+cN+"!\n");
 					victory = true;
@@ -482,7 +500,7 @@ public static boolean battle(Player p, Monster c) {
 	
 	int php = p.getHealth();
 	int chp = c.getHealth();
-	int damageTracker = 0;
+	int damageTracker = 0, looper = 0;
 	int escChance = p.getAgility()+2;
 	String cN = c.getName(), pN = p.getName();
 	Scanner read = new Scanner(System.in);
@@ -490,7 +508,7 @@ public static boolean battle(Player p, Monster c) {
 	boolean flag = true, fight = true, iFlag = true, victory = false;
 	while(flag) {
 		
-		System.out.println("An enemy "+cN+" stands before you.\n");
+		System.out.println("A level "+c.getLevel()+" monstrous enemy, "+cN+" stands before you.\n");
 		System.out.println("Do you wish to fight? (y/n)");
 		
 		while(iFlag) {
@@ -500,13 +518,17 @@ public static boolean battle(Player p, Monster c) {
 			}catch(Exception e) {
 				System.out.println("Input y to fight or Input n to flee");
 				iFlag = true;
+				looper++;
+				//in the case of feedback loop for combat, force exits loop
+				if(looper >= 10) { iFlag = true; decision = "N";}
 			}
 		}
 		
 		if(decision.trim().charAt(0)=='n'||decision.trim().charAt(0)=='N') fight = false;
 		
 		if(fight) {
-			System.out.println("You have chosen to fight!\n");
+			System.out.println("\nYou have chosen to fight!\n");
+			System.out.println("Player health:"+php+" || Enemy health:"+chp);
 			
 			if(p.getAgility()>c.getAgility()) {
 				System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -563,7 +585,7 @@ public static boolean battle(Player p, Monster c) {
 				
 			}else {
 				System.err.println("perpetual agility logical loop. exiting...");
-					System.out.println("p="+p.getAgility()+"||c="+c.getAgility());
+				System.out.println("p="+p.getAgility()+"||c="+c.getAgility());
 				flag = false;
 			}
 		}else {
@@ -584,11 +606,16 @@ public static boolean battle(Player p, Monster c) {
 			flag = false;
 			if(chp>=0) {
 				System.out.println(pN+" was defeated by the "+cN+"!\n");
-				System.out.println(pN+" dropped "+p.getGold()+" gold to get away safely.");
-				p.decreaseGold(p.getGold());
+				
+				if(p.getGold() > 0) {
+					System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
+					p.decreaseGold(p.getGold());
+				}else {
+					p.increaseDeathCount();
+					System.out.println("You had no gold to throw and have taken a serious wound.");
+				}
 			}else {
 				System.out.println(pN+" defeated the "+cN+"!\n");
-				
 				victory = true;
 			}
 		}
@@ -614,4 +641,5 @@ public static boolean battle(Player p, Monster c) {
 	}
 	return victory;
 }//end battle
+
 }

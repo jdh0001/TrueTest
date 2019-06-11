@@ -16,8 +16,10 @@ public class Player {
 	private static int gold;
 	
 	private static Weapon at;
-	
 	private static Armor[] aa;
+	
+	private int deathCount;
+	private boolean death;
 	
 	//They can all be 0 but should not in most cases
 	private static int mAtk;
@@ -35,6 +37,8 @@ public class Player {
 	public Player(String n) {
 		name = n;
 		if(name == "") name = "Idiot McLoserBoy Jr.";
+		deathCount = 0;
+		death = false;
 		health = ThreadLocalRandom.current().nextInt(15,31);
 		stamina = ThreadLocalRandom.current().nextInt(15,31);
 		mana = ThreadLocalRandom.current().nextInt(15,31);
@@ -228,6 +232,13 @@ public class Player {
 		if(gold < 0) gold = 0;
 	}
 	
+	public void increaseDeathCount() {
+		deathCount++;
+		if(deathCount >= 3) {
+			death = true;
+		}
+	}
+	
 	public static void clearInventory() {
 		inventory = new Item[15];
 	}
@@ -282,7 +293,11 @@ public class Player {
 	public int getStamina() {
 		return stamina;
 	}
-
+	
+	public boolean isDead() {
+		return death;
+	}
+	
 	public int getMana() {
 		return mana;
 	}

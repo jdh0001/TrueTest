@@ -86,11 +86,11 @@ public class Weapon extends Item {
 		if(maType == 0) {
 			maMod = 0;
 		}else if(maType <= 4){
-			maMod = ThreadLocalRandom.current().nextInt(1, 26) * (maType + ThreadLocalRandom.current().nextInt(0, 6));
+			maMod = ThreadLocalRandom.current().nextInt(1, 21) * (maType + ThreadLocalRandom.current().nextInt(0, 4));
 		}else if(maType > 4) {
-			maMod = ThreadLocalRandom.current().nextInt(5, 31) * (maType);
+			maMod = ThreadLocalRandom.current().nextInt(5, 26) * (maType);
 		}	
-		paMod = ThreadLocalRandom.current().nextInt(4, 26) * (paType + 2);
+		paMod = ThreadLocalRandom.current().nextInt(3, 5*rar) * (paType + 2);
 		
 	}
 	
