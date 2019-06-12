@@ -80,6 +80,89 @@ public class Place {
 				System.out.println("You chose not to sell. The old man seems disappointed..\n");
 			}
 			
+			System.out.println("Would you like to buy equipment?(y/n)");
+			choice = "n";
+			choice = read.next();
+			int opt = 0;
+			boolean buy = true;
+ 			
+			if(choice.trim().toLowerCase().charAt(0)=='y') {
+				int broke = 0;
+				while(buy) {
+					buy = false;
+					System.out.println("This shop sells armor and weapons.\n");
+					try {
+						System.out.println("Input 1 to buy a WEAPON or 0 to buy ARMOR");
+						opt = read.nextInt();
+					}catch(Exception e) {
+						
+					}
+					if(p.getGold()>25) {
+						if(opt==0) {
+							Weapon temp = p.getAt();
+							Weapon better = new Weapon(temp);
+							if(better.getValue()>p.getGold()) {
+								System.out.println("You cannot afford this WEAPON.");
+								broke++;
+							}else {
+								p.setWeapon(better);
+								System.out.println("You equipped "+better.getName().toUpperCase()+"!\n");
+								System.out.println(temp.getName()+" was placed in your inventory.\n");
+								p.decreaseGold(better.getValue());
+								System.out.println("You have "+p.getGold()+" gold left!\n");	
+								
+								for(int i = 0; i < p.getInventory().length; i++) {
+									if(p.getInventory()[i] == null) {
+										p.getInventory()[i] = temp;
+										
+									}
+								}
+							}
+							
+						}else if(opt==1) {
+							Armor[] armory = p.getAa();
+							int place = 0;
+							for(int i = 0; i < armory.length; i++) {
+								if(armory[i] == null) {
+									place++;
+									break;
+								}else if(armory[i] != null && i == (armory.length-1)) {
+									place = p.getOldestArmor();
+									p.incrementOldestArmor();
+								}
+							}
+							Armor temp = p.getAa()[place];
+							Armor better = new Armor(temp);
+							if(better.getValue()>p.getGold()) {
+								System.out.println("You cannot afford this ARMOR.\n");
+								broke++;
+							}else {
+								p.getAa()[place] = better;
+								System.out.println("You equipped "+better.getName().toUpperCase()+"!\n");
+								System.out.println(temp.getName()+" was placed in your inventory.\n");
+								p.decreaseGold(better.getValue());
+								System.out.println("You have "+p.getGold()+" gold left!\n");
+								
+								for(int i = 0; i < p.getInventory().length; i++) {
+									if(p.getInventory()[i] == null) {
+										p.getInventory()[i] = temp;
+										
+									}
+								}
+							}
+						}//end opt
+					}//end gold check
+					
+					System.out.println("Would you like to continue shopping?(y/n)");
+					choice = read.next();
+					if(choice.trim().toLowerCase().charAt(0)=='y') buy = true;
+					if(broke >= 3) buy = false;
+				}
+				if(broke<3) {System.out.println("The old man seems to appreciate your business.\n\n");}else {
+					System.out.println("The old man is disgusted by you..\n\n");
+				}
+			}
+			
 		}else {
 			if(placeHolder >= enemies.length) { dun.setCurrentFloor(floorNum+1); placeHolder = 0;}else {
 				//int type = enemies[placeHolder].getcType();

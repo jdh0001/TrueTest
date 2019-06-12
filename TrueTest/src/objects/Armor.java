@@ -59,6 +59,15 @@ public class Armor extends Item {
 		genStats(rar);
 	}
 	
+	public Armor(Armor a) {
+		super(1,ThreadLocalRandom.current().nextInt(0,5));
+		pdMod = ThreadLocalRandom.current().nextInt(a.getPdMod(),(a.getPdMod()+20));
+		mdMod = ThreadLocalRandom.current().nextInt(a.getMdMod(),(a.getMdMod()+20));
+		if( ThreadLocalRandom.current().nextInt(0,2)==1) metalArmor = true;
+		material = ThreadLocalRandom.current().nextInt(0,7);
+		name = Formula.armorName(material, metalArmor);
+	}
+	
 	private static void genStats(int rar) {
 		if(metalArmor) {
 			pdMod = ThreadLocalRandom.current().nextInt(4, 26) * (material+2);

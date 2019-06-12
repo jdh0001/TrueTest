@@ -55,6 +55,15 @@ public class Weapon extends Item {
 		name = Formula.weaponName(paType, maType);
 	}
 	
+	public Weapon(Weapon w) {
+		super(0,ThreadLocalRandom.current().nextInt(0,5));
+		paMod = ThreadLocalRandom.current().nextInt(w.getPaMod(),(w.getPaMod()+20));
+		maMod = ThreadLocalRandom.current().nextInt(w.getMaMod(),(w.getMaMod()+20));
+		paType = ThreadLocalRandom.current().nextInt(0,3);
+		maType = ThreadLocalRandom.current().nextInt(0,8);
+		name = Formula.weaponName(paType, maType);
+	}
+	
 	public Weapon() {
 		super();
 		name = "???";

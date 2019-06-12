@@ -27,12 +27,14 @@ public class Player {
 	private static int mDef;
 	private static int pDef;
 	
+	
 	//They can be 0 
 	private static int agility;
 	private static int luck;
 	private static int armorScore;
 	
 	private static Item[] inventory;
+	private static int oldestArmor;
 	
 	public Player(String n) {
 		name = n;
@@ -54,6 +56,7 @@ public class Player {
 		inventory = new Item[15];
 		armorScore = 0;
 		int throwAway = consolidatePArmor();
+		oldestArmor = 0;
 	}
 	
 	public static void increaseExp(int e) {
@@ -214,6 +217,14 @@ public class Player {
 		
 	}
 	
+	public int getOldestArmor() {
+		return oldestArmor;
+	}
+	
+	public void incrementOldestArmor() {
+		oldestArmor++;
+	}
+	
 	public int getHealth() {
 		
 		return health;
@@ -344,6 +355,10 @@ public class Player {
 
 	public Item[] getInventory() {
 		return inventory;
+	}
+	
+	public void setWeapon(Weapon w) {
+		at = w;
 	}
 	
 
