@@ -186,7 +186,7 @@ public class Formula {
 		String[] mod2 = new String[] 
 		{"Evil", "Good", "Madness", "Cheese", "Happiness", "Sadness", "Mushrooms", "Food",
 		"Demons", "Monsters", "Resting", "No Gold", "Insanity", "Creepiness", "Typos",		
-		Formula.monsterName()+"s", "Energy", "Depression", "Pessimistism",				
+		Formula.monsterName()+"s", "Energy", "Depression", "Pessimisism",				
 		"Rice", "Meat", "Eating", "Devouring", "Composing", "Heart Break", "Legs and Wheels",
 		"Cruelty", "Mercy", "Vegetables", "Candy", "Trash", "Garbage", "???",
 		"Ice", "Tears", "Goo", "Poo", "Dirt", "Illness", "Lavatories", "Easy Victories",
@@ -222,7 +222,8 @@ public class Formula {
 			while(iFlag) {
 				try {
 					iFlag = false;
-					decision = read.nextLine();
+					decision = read.next();
+					read.nextLine();
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
@@ -368,7 +369,9 @@ public static boolean battle(Player p, Beast c) {
 			while(iFlag) {
 				try {
 					iFlag = false;
-					decision = read.nextLine();
+					decision = read.next();
+					read.nextLine();
+					
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
@@ -514,7 +517,8 @@ public static boolean battle(Player p, Monster c) {
 		while(iFlag) {
 			try {
 				iFlag = false;
-				decision = read.nextLine();
+				decision = read.next();
+				read.nextLine();
 			}catch(Exception e) {
 				System.out.println("Input y to fight or Input n to flee");
 				iFlag = true;

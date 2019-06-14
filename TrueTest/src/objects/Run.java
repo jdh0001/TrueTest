@@ -85,7 +85,7 @@ public class Run {
 				System.out.println("***********************************************************************\n");
 				System.out.println("New dungeon? (y/n)");
 				
-				choice = read.nextLine();
+				choice = read.next();
 				//read.close();
 				if(choice.trim().charAt(0)=='y') {
 					
@@ -93,6 +93,7 @@ public class Run {
 				}else {
 					flag = false;
 				}
+				read.nextLine();
 			}	
 		}
 		

@@ -52,10 +52,11 @@ public class Place {
 				try {
 					flag = false;
 					System.out.println("Sell your items? (y/n)");
-					choice = read.nextLine();
+					choice = read.next();
 				}catch(Exception e) {
 					flag = true;
 				}
+				read.nextLine();
 				
 			}
 			if(choice.trim().charAt(0) =='y') {
@@ -82,7 +83,8 @@ public class Place {
 			
 			System.out.println("Would you like to buy equipment?(y/n)");
 			choice = "n";
-			choice = read.nextLine();
+			choice = read.next();
+			read.nextLine();
 			int opt = 0;
 			boolean buy = true;
  			
@@ -154,9 +156,10 @@ public class Place {
 					}//end gold check
 					
 					System.out.println("Would you like to continue shopping?(y/n)");
-					choice = read.nextLine();
+					choice = read.next();
 					if(choice.trim().toLowerCase().charAt(0)=='y') buy = true;
 					if(broke >= 3) buy = false;
+					read.nextLine();
 				}
 				if(broke<3) {System.out.println("The old man seems to appreciate your business.\n\n");}else {
 					System.out.println("The old man is disgusted by you..\n\n");
