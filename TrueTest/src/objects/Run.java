@@ -14,20 +14,24 @@ public class Run {
 			try {
 				flag = false;
 				System.out.println("Please enter your name:");
-				name = read.next();
+				name = read.nextLine();
 			}catch(Exception e) {
 				flag = true;
 			}
 		}
 		flag = true;
+
 		while(flag) {
 			try {
 				flag = false;
 				System.out.println("1 =  easy, 2 = normal, 3 = hard, 4 = fingerbreaker");
 				System.out.println("Please select your difficulty:");
+				
 				difficulty = read.nextInt();
 			}catch(Exception e) {
 				flag = true;
+				
+				
 			}
 		}
 		
@@ -81,28 +85,9 @@ public class Run {
 				System.out.println("***********************************************************************\n");
 				System.out.println("New dungeon? (y/n)");
 				
-				choice = read.next();
+				choice = read.nextLine();
 				//read.close();
 				if(choice.trim().charAt(0)=='y') {
-	//				while(flag) {
-	//					try {
-	//						flag = false;
-	//						System.out.println("1 =  easy, 2 = normal, 3 = hard, 4 = fingerbreaker");
-	//						System.out.println("Please select your difficulty:");
-	//						difficulty = read.nextInt();
-	//					}catch(Exception e) {
-	//						flag = true;
-	//					}
-	//				}
-	//				
-	//				switch(difficulty) {
-	//				case 1: set = 3; System.out.println("You selected easy. \n"); break;
-	//				case 2: set = 7; System.out.println("You selected normal. \n"); break;
-	//				case 3: set = 15; System.out.println("You selected hard. \n"); break;
-	//				case 4: set = 27; System.out.println("You selected fingerbreaker. \n"); break;
-	//				case 5: set = 1000; System.out.println("You selected endless wave mode. \n"); break;
-	//				default: set = 3; System.out.println("You selected easy. \n"); break;
-	//				}
 					
 					flag = true;
 				}else {

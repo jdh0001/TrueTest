@@ -222,7 +222,7 @@ public class Formula {
 			while(iFlag) {
 				try {
 					iFlag = false;
-					decision = read.next();
+					decision = read.nextLine();
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
@@ -368,7 +368,7 @@ public static boolean battle(Player p, Beast c) {
 			while(iFlag) {
 				try {
 					iFlag = false;
-					decision = read.next();
+					decision = read.nextLine();
 				}catch(Exception e) {
 					System.out.println("Input y to fight or Input n to flee");
 					iFlag = true;
@@ -514,7 +514,7 @@ public static boolean battle(Player p, Monster c) {
 		while(iFlag) {
 			try {
 				iFlag = false;
-				decision = read.next();
+				decision = read.nextLine();
 			}catch(Exception e) {
 				System.out.println("Input y to fight or Input n to flee");
 				iFlag = true;
