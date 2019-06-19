@@ -4,7 +4,14 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Formula {
-
+	
+	//ASCII color breakouts
+	private static String red = "\u001b[31m";
+	private static String yellow = "\u001b[3mm";
+	private static String reset = "\u001b[0m";
+	private static String green = "\u001b[32m";
+	
+	//dynamic name generators
 	
 	public static String beastName() {
 		
@@ -204,6 +211,10 @@ public class Formula {
 				mod2[ThreadLocalRandom.current().nextInt(0,(mod2.length))];
 	}
 		
+	
+	//encounters based on enemy type
+	
+	
 	public static boolean battle(Player p, Sentient c) {
 		
 		int php = p.getHealth();
@@ -237,7 +248,7 @@ public class Formula {
 			
 			if(fight) {
 				System.out.println("\nYou have chosen to fight!\n");
-				System.out.println("Player health:"+php+" || Enemy health:"+chp);
+				System.out.println("Player health:"+php+" || Enemy health:"+chp+"\n");
 				
 				if(p.getAgility()>c.getAgility()) {
 					System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -307,18 +318,23 @@ public class Formula {
 					damageTracker = (int)(p.damageOutput(c)/escChance);
 					php -= damageTracker;
 					System.out.println("Player "+pN+" takes "+damageTracker+" damage.\n");
-					escChance++;
+					escChance+=3;
 				}
 			}
 			
 			if(php <= 0 || chp <= 0) { 
 				flag = false;
 				if(chp>=0) {
-					System.out.println(pN+" was defeated by the "+cN+"!\n");
-					
+					System.out.println(red+pN+" was defeated by the "+cN+"!\n"+reset);
+					p.increaseRunCount();
 					if(p.getGold() > 0) {
-						System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
-						p.decreaseGold(p.getGold());
+						if(p.getGold()<100) {
+							p.decreaseGold(p.getGold());
+							System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+						}else {
+							p.decreaseGold((int)(p.getGold()/2));
+							System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+						}
 					}else {
 						p.increaseDeathCount();
 						System.out.println("You had no gold to throw and have taken a serious wound.");
@@ -339,9 +355,22 @@ public class Formula {
 			Item[] droppings = c.getDrops();
 			int place = 0;
 			for(int i = 0; i < p.getInventory().length; i++) {
-				if(p.getInventory()[i] == null && place < droppings.length) {
-					p.getInventory()[i] = droppings[place];
-					place++;
+			if(p.getInventory()[i] == null && place < droppings.length && droppings.length > i) {
+				Item temp = droppings[i];
+				if(temp instanceof Weapon) {
+					if(compareWeapon(p,(Weapon)temp)) {
+						temp = p.getAt();
+						p.setWeapon((Weapon)droppings[i]);
+					}
+				}
+				if(temp instanceof Armor) {equipArmor(p,(Armor)temp);}else {
+				
+						p.getInventory()[i] = temp;
+						place++;
+					
+				}
+					
+				
 				}else if(place >= droppings.length) {
 					break;
 				}
@@ -385,7 +414,7 @@ public static boolean battle(Player p, Beast c) {
 			
 			if(fight) {
 				System.out.println("\nYou have chosen to fight!\n");
-				System.out.println("Player health:"+php+" || Enemy health:"+chp);
+				System.out.println("Player health:"+php+" || Enemy health:"+chp+"\n");
 				
 				if(p.getAgility()>c.getAgility()) {
 					System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -455,18 +484,23 @@ public static boolean battle(Player p, Beast c) {
 					damageTracker = (int)(p.damageOutput(c)/escChance);
 					php -= damageTracker;
 					System.out.println("Player "+pN+" takes "+damageTracker+" damage.\n");
-					escChance++;
+					escChance+=3;
 				}
 			}
 			
 			if(php <= 0 || chp <= 0) { 
 				flag = false;
 				if(chp>=0) {
-					System.out.println(pN+" was defeated by the "+cN+"!\n");
-					
+					System.out.println(red+pN+" was defeated by the "+cN+"!\n"+reset);
+					p.increaseRunCount();
 					if(p.getGold() > 0) {
-						System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
-						p.decreaseGold(p.getGold());
+						if(p.getGold()<100) {
+							p.decreaseGold(p.getGold());
+							System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+						}else {
+							p.decreaseGold((int)(p.getGold()/2));
+							System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+						}
 					}else {
 						p.increaseDeathCount();
 						System.out.println("You had no gold to throw and have taken a serious wound.");
@@ -487,9 +521,22 @@ public static boolean battle(Player p, Beast c) {
 			Item[] droppings = c.getDrops();
 			int place = 0;
 			for(int i = 0; i < p.getInventory().length; i++) {
-				if(p.getInventory()[i] == null && place < droppings.length) {
-					p.getInventory()[i] = droppings[place];
-					place++;
+			if(p.getInventory()[i] == null && place < droppings.length && droppings.length > i) {
+				Item temp = droppings[i];
+				if(temp instanceof Weapon) {
+					if(compareWeapon(p,(Weapon)temp)) {
+						temp = p.getAt();
+						p.setWeapon((Weapon)droppings[i]);
+					}
+				}
+				if(temp instanceof Armor) {equipArmor(p,(Armor)temp);}else {
+				
+						p.getInventory()[i] = temp;
+						place++;
+					
+				}
+					
+				
 				}else if(place >= droppings.length) {
 					break;
 				}
@@ -532,7 +579,7 @@ public static boolean battle(Player p, Monster c) {
 		
 		if(fight) {
 			System.out.println("\nYou have chosen to fight!\n");
-			System.out.println("Player health:"+php+" || Enemy health:"+chp);
+			System.out.println("Player health:"+php+" || Enemy health:"+chp+"\n");
 			
 			if(p.getAgility()>c.getAgility()) {
 				System.out.println(pN+" attacks with "+p.getAt().getName()+".");
@@ -602,18 +649,24 @@ public static boolean battle(Player p, Monster c) {
 				damageTracker = (int)(p.damageOutput(c)/escChance);
 				php -= damageTracker;
 				System.out.println("Player "+pN+" takes "+damageTracker+" damage.\n");
-				escChance++;
+				escChance+=3;
 			}
 		}
 		
 		if(php <= 0 || chp <= 0) { 
 			flag = false;
 			if(chp>=0) {
-				System.out.println(pN+" was defeated by the "+cN+"!\n");
-				
+				System.out.println(red + pN+" was defeated by the "+cN+"!\n"+reset);
+				p.increaseRunCount();
 				if(p.getGold() > 0) {
-					System.out.println(pN + " dropped " + p.getGold() + " gold to get away safely.");	
-					p.decreaseGold(p.getGold());
+					if(p.getGold()<100) {
+						p.decreaseGold(p.getGold());
+						System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+					}else {
+						p.decreaseGold((int)(p.getGold()/2));
+						System.out.println(pN + " dropped " + yellow + p.getGold() + " gold" + yellow + " to get away safely.");
+					}
+
 				}else {
 					p.increaseDeathCount();
 					System.out.println("You had no gold to throw and have taken a serious wound.");
@@ -634,9 +687,22 @@ public static boolean battle(Player p, Monster c) {
 		Item[] droppings = c.getDrops();
 		int place = 0;
 		for(int i = 0; i < p.getInventory().length; i++) {
-			if(p.getInventory()[i] == null && place < droppings.length) {
-				p.getInventory()[i] = droppings[place];
-				place++;
+		if(p.getInventory()[i] == null && place < droppings.length && droppings.length > i) {
+			Item temp = droppings[i];
+			if(temp instanceof Weapon) {
+				if(compareWeapon(p,(Weapon)temp)) {
+					temp = p.getAt();
+					p.setWeapon((Weapon)droppings[i]);
+				}
+			}
+			if(temp instanceof Armor) {equipArmor(p,(Armor)temp);}else {
+			
+					p.getInventory()[i] = temp;
+					place++;
+				
+			}
+				
+			
 			}else if(place >= droppings.length) {
 				break;
 			}
@@ -645,5 +711,82 @@ public static boolean battle(Player p, Monster c) {
 	}
 	return victory;
 }//end battle
+
+
+//determine if equipment received from combat is better than current equipment
+
+
+private static boolean compareWeapon(Player p, Weapon w) {
+	Weapon curr = p.getAt();
+	String choice = "";
+	Scanner read = new Scanner(System.in);
+	boolean newIsBetter = false;
+	int currBestAttack = curr.getMaMod(), wBestAttack = w.getMaMod();
+	
+	if(wBestAttack>w.getPaMod()) wBestAttack = w.getPaMod();
+	
+	if(wBestAttack > currBestAttack) {
+		System.out.println("You received the "+w.getName()+" which is better than your current weapon.\n");
+		System.out.println("Equip the new weapon(y/n:");
+		choice = read.next();
+		if(choice.trim().toLowerCase().charAt(0)=='y') {
+			newIsBetter = true;
+		}
+	} else if(wBestAttack == currBestAttack && curr.getMaType() < w.getMaType()){
+		System.out.println("You received the "+w.getName()+" which is better than your current weapon.\n");
+		System.out.println("Equip the new weapon(y/n:");
+		choice = read.next();
+		if(choice.trim().toLowerCase().charAt(0)=='y') {
+			newIsBetter = true;
+		}
+	}
+	
+	return newIsBetter;
+}
+//TODO: Implement rest of equip item functions for after battle interaction
+private static boolean equipArmor(Player p, Armor better) {
+	boolean replacing = false;
+	String choice = "";
+	Scanner read = new Scanner(System.in);
+	Armor[] armory = p.getAa();
+	int place = 0;
+	for(int i = 0; i < armory.length; i++) {
+		if(armory[i] == null) {
+			place++;
+			break;
+		}else if(armory[i] != null && i == (armory.length-1)) {
+			place = p.getOldestArmor();
+			p.incrementOldestArmor();
+			replacing = true;
+		}
+	}
+	if(armory[place]!=null) {
+		Armor temp = p.getAa()[place];
+		int totalOld = temp.getPdMod()+temp.getMdMod(), totalNew = better.getPdMod()+better.getMdMod();
+		if(totalOld<totalNew) {
+
+			System.out.println("You received the "+better.getName()+" which is better than your current armor.\n");
+			System.out.println("Equip the new armor(y/n:");
+			choice = read.next();
+			if(choice.trim().toLowerCase().charAt(0)=='y') {
+				replacing = true;
+			
+				p.getAa()[place] = better;
+				for(int i = 0; i < p.getInventory().length; i++) {
+					if(p.getInventory()[i] == null) {
+						p.getInventory()[i] = temp;
+						
+					}
+				}
+			}else {
+				
+			}
+		}
+	}else {
+		p.getAa()[place] = better;
+		System.out.println("You equipped the "+better.getName());
+	}
+	return replacing;
+}
 
 }

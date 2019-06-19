@@ -42,11 +42,13 @@ public class Run {
 			case 2: set = 7; System.out.println("You selected normal. \n"); break;
 			case 3: set = 15; System.out.println("You selected hard. \n"); break;
 			case 4: set = 27; System.out.println("You selected fingerbreaker. \n"); break;
+			//hidden difficulty
 			case 5: set = 1000; System.out.println("You selected endless wave mode. \n"); break;
 			default: set = 3; System.out.println("You selected easy. \n"); break;
 		}
 		
 		Player p = new Player(name);
+		//initial equipment set readout to make sure player is actually equipped
 		System.out.println(p.getName()+" wields "+p.getAt().getName().toUpperCase()+" and wears "+p.getAa()[0].getName().toUpperCase()+".\n");
 		Dungeon d;
 		
@@ -75,11 +77,13 @@ public class Run {
 					}
 				}
 				if(!p.isDead()) {
+					//player is not dead -> new dungeon floor
 					System.out.println("\n**Floor "+floors[i].getFloorNum()+" cleared**\n");
 					System.out.println("("+(floors.length - floors[i].getFloorNum())+") Floors left in the dungeon!\n");
 				}
 			}
 			if(!p.isDead()) {
+				//player alive, dungeon complete, offers to do new dungeon
 				System.out.println("\n***********************************************************************");
 				System.out.println("\nThe "+d.getDunName()+" cleared!\n");
 				System.out.println("***********************************************************************\n");
@@ -97,12 +101,30 @@ public class Run {
 			}	
 		}
 		
+		String bravery = "Unknown";
+		int runs = p.getRunCount();
+		if(runs>=(set*3)) {
+			bravery = "coward";
+		}else if(runs>=(set*2)) {
+			bravery = "normal person";
+		}else if(runs>=set) {
+			bravery = "brave person";
+		}else if(runs>0) {
+			bravery = "hero";
+		}else if(runs == 0) {
+			bravery = "hero of legend";
+		}
+		
 		if(!p.isDead()) {
+		
 			System.out.println("\nYou win!\n");
 			System.out.println("Total score: "+p.getGold());
 			System.out.println("Player level: "+p.getLevel());
+			System.out.println("Bravery level: "+bravery.toUpperCase());	
+			
 		} else {
-			System.out.println("You died..");
+			if(runs == 0) bravery = "hero";
+			System.out.println("You died a "+bravery+"..");
 			System.out.println("Your body reanimates into a monster for the next explorer to face..");
 		}
 		System.out.println("\nEXITING GAME");

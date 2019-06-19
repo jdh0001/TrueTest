@@ -35,6 +35,14 @@ public class Player {
 	
 	private static Item[] inventory;
 	private static int oldestArmor;
+	private static Item[] hotbar;
+	private static int cowardCount;
+	//Type 0 - Health Restore
+	//Type 1 - Stamina Restore
+	//Type 2 - Mana Restore
+	//Type 3 - Agility Buff
+	//Type 4 - Armor Score Buff
+	//Type 5 - Remove Status Effects
 	
 	public Player(String n) {
 		name = n;
@@ -54,6 +62,7 @@ public class Player {
 		luck = 1;
 		agility = ThreadLocalRandom.current().nextInt(4,16);
 		inventory = new Item[15];
+		hotbar = new Item[6];
 		armorScore = 0;
 		int throwAway = consolidatePArmor();
 		oldestArmor = 0;
@@ -360,6 +369,16 @@ public class Player {
 	public void setWeapon(Weapon w) {
 		at = w;
 	}
-	
 
+	public int getRunCount() {
+		return cowardCount;
+	}
+	
+	public void increaseRunCount() {
+		cowardCount++;
+	}
+	
+	public Item[] getHotBar(){
+		return hotbar;
+	}
 }
